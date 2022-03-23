@@ -1,35 +1,77 @@
-**💛 You can help the author become a full-time open-source maintainer by [sponsoring him on GitHub](https://github.com/sponsors/egoist).**
+# Slotz
 
----
+Teleport React components into anywhere into the react-tree.
 
-# my-ts-lib
+Modernized from [react-slot-fill](https://github.com/camwest/react-slot-fill)
 
-[![npm version](https://badgen.net/npm/v/my-ts-lib)](https://npm.im/my-ts-lib) [![npm downloads](https://badgen.net/npm/dm/my-ts-lib)](https://npm.im/my-ts-lib)
+## Example
 
-## Using this template
+```tsx
+// slotz.js
+class Toolbar extends Component {
+  static Item = ({ label }: { label: string }) => (
+    <Fill name="Toolbar.Item">
+      <button>{label}</button>
+    </Fill>
+  );
 
-- Search `my-ts-lib` and replace it with your custom package name.
-- Search `egoist` and replace it with your name.
+  render() {
+    return (
+      <nav>
+        <Slot name="Toolbar.Item" />
+      </nav>
+    );
+  }
+}
 
-Features:
+class Footer extends Component {
+  static Item = ({ href, label }: { href: string; label: string }) => (
+    <Fill name="Footer.Item">
+      <a href={href}>{label}</a>
+    </Fill>
+  );
 
-- Package manager [pnpm](https://pnpm.js.org/), safe and fast
-- Release with [semantic-release](https://npm.im/semantic-release)
-- Bundle with [tsup](https://github.com/egoist/tsup)
-- Test with [vitest](https://vitest.dev)
+  render() {
+    return (
+      <footer>
+        <Slot name="Footer.Item" />
+      </footer>
+    );
+  }
+}
 
-To skip CI (GitHub action), add `skip-ci` to commit message. To skip release, add `skip-release` to commit message.
+// my-page.js
+const Feature = () => {
+  return (
+    <div>
+      <Toolbar.Item label="Home 2" />
+      <Toolbar.Item label="About" />
+      <Footer.Item label="Twitter" href="twitter.com/reactjs" />
+    </div>
+  );
+};
 
-## Install
+const MyPage = () => {
+  return (
+    <Provider>
+      <div className="main">
+        <Toolbar />
+        <Footer />
+        <Feature />
+      </div>
+    </Provider>
+  );
+};
 
-```bash
-npm i my-ts-lib
+// HTML
+<div className="main">
+  <nav>
+    <button>Home 2</button>
+    <button>About</button>
+  </nav>
+  <footer>
+    <a href="twitter.com/reactjs">Twitter</a>
+  </footer>
+  <div />
+</div>;
 ```
-
-## Sponsors
-
-[![sponsors](https://sponsors-images.egoist.sh/sponsors.svg)](https://github.com/sponsors/egoist)
-
-## License
-
-MIT &copy; [EGOIST](https://github.com/sponsors/egoist)
