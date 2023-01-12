@@ -1,6 +1,6 @@
 # Slotz
 
-Teleport React components into anywhere into the react-tree.
+Teleport React components to anywhere in the react-tree.
 
 Modernized from [react-slot-fill](https://github.com/camwest/react-slot-fill)
 
